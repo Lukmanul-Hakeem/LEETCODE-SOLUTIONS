@@ -1,6 +1,3 @@
-/**
- * Note: The returned array must be malloced, assume caller calls free().
- */
 int binarySearch(int A[],int low,int high,int target,int ans){
     if(low>high){
         return ans;
