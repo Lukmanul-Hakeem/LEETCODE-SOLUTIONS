@@ -1,37 +1,57 @@
 class Solution {
-    class Edge{
-        int source;
-        int dest;
-        Edge(int source,int dest){
-            this.source=source;
-            this.dest=dest;
+    class node{
+        int val;
+        node next;
+        node(int val,node next){
+            this.val=val;
+            this.next=next;
+        } 
+    }
+
+    class graph{
+        int vertices;
+        node List[];
+
+        graph(int vertices){
+            this.vertices=vertices;
+            List=new node[vertices];
         }
     }
-    public boolean findpath( ArrayList<Edge> graph[],int source,int dest,int visited[]){
-        if(source==dest)return true;
-        if(visited[source]==1)return false;
-        boolean flag=false;
+
+    public void DFS(graph g,int source,int visited[]){
+        if(visited[source]==1)return;
         visited[source]=1;
-        for(int i=0;i<graph[source].size();i++){
-            Edge e=graph[source].get(i);
-            System.out.println(e.dest);
-            flag=findpath(graph,e.dest,dest,visited);
-            if(flag)return flag;
+        node temp=g.List[source];
+        while(temp!=null){
+            DFS(g,temp.val,visited);
+            temp=temp.next;
         }
-        return flag;
     }
+
     public boolean validPath(int n, int[][] edges, int source, int destination) {
-        ArrayList<Edge> graph[]=new ArrayList[n];
-        for(int i=0;i<n;i++){
-            graph[i]=new ArrayList<>();
-        }
-
+        graph g=new graph(n);
         for(int i=0;i<edges.length;i++){
-            graph[edges[i][0]].add(new Edge(edges[i][0],edges[i][1]));
-            graph[edges[i][1]].add(new Edge(edges[i][1],edges[i][0]));
-        }
-        int visited[]=new int[n];
+            if(g.List[edges[i][0]]==null)g.List[edges[i][0]]=new node(edges[i][1],null);
+            else{
+                node newnode=new node(edges[i][1],null);
+                newnode.next=g.List[edges[i][0]];
+                g.List[edges[i][0]]=newnode;
+            }
 
-        return findpath(graph,source,destination,visited);
+            if(g.List[edges[i][1]]==null)g.List[edges[i][1]]=new node(edges[i][0],null);
+            else{
+                node newnode=new node(edges[i][0],null);
+                newnode.next=g.List[edges[i][1]];
+                g.List[edges[i][1]]=newnode;
+            }
+
+        }
+
+        int visited[]=new int [n];
+        for(int i=0;i<n;i++)visited[i]=0;
+
+        DFS(g,source,visited);
+        if(visited[destination]==1)return true;
+        return false;
     }
 }
