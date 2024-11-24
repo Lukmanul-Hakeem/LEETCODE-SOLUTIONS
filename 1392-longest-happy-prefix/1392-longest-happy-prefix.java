@@ -2,7 +2,7 @@ class Solution {
     public String longestPrefix(String s) {
         
         int A[]=new int[s.length()];
-        for(int i=0;i<A.length;i++)A[i]=0;
+        //for(int i=0;i<A.length;i++)A[i]=0;
 
         int i=0;
         int j=1;
