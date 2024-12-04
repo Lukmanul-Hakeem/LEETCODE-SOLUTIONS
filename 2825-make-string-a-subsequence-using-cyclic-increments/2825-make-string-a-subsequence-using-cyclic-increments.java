@@ -4,17 +4,15 @@ class Solution {
         int i=0;
         int j=0;
         while(i<str1.length() && j<str2.length()){
-            char ch1=str1.charAt(i);
-            char ch2=(char)(ch1+1);
-            if(ch2=='{')ch2='a';
-            if(ch1==str2.charAt(j) || ch2==str2.charAt(j)){
-                i++;
-                j++;
-            }else i++;
-        }
-        if(j==str2.length())return true;
 
-        return false;
+            char ch1=str1.charAt(i);
+            char ch2=(char)((ch1=='z') ? 'a' : (ch1+1));
+
+            if(ch1==str2.charAt(j) || ch2==str2.charAt(j))j++;
+            i++;
+        }
+        
+        return j==str2.length();
 
     }
 }
