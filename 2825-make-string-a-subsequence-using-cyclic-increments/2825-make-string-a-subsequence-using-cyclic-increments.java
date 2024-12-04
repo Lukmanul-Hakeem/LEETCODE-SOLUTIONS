@@ -5,10 +5,8 @@ class Solution {
         int j=0;
         while(i<str1.length() && j<str2.length()){
             char ch1=str1.charAt(i);
-            // char ch2=ch+1;
             char ch2=(char)(ch1+1);
             if(ch2=='{')ch2='a';
-            // System.out.println((char)(ch1+1));
             if(ch1==str2.charAt(j) || ch2==str2.charAt(j)){
                 i++;
                 j++;
