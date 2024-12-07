@@ -1,15 +1,19 @@
 class Solution {
+    //public void findMaxProfit(int prices[],int dp[],)
     public int maxProfit(int[] prices) {
-        int maxval=prices[prices.length-1];
-        int maxprofit=0;
-        int profit=0;
-        int i=prices.length-2;
-        while(i>=0){
-            maxval=maxval>prices[i]?maxval:prices[i];
-            profit=maxval-prices[i];
-            maxprofit=maxprofit>profit?maxprofit:profit;
-            i--;
+        int dp[]=new int[prices.length];
+        for(int i=0;i<prices.length;i++)dp[i]=0;
+        int max=0;
+        for(int i=0;i<prices.length-1;i++){
+            for(int j=i+1;j<prices.length;j++){
+                if(prices[i]<prices[j] && prices[j] - prices[i] > dp[j]){
+                    dp[j]=prices[j] - prices[i];
+                    max = max > dp[j] ? max : dp[j];
+                }else break;
+            }
         }
-        return maxprofit;
+
+        return max;
+
     }
 }
