@@ -17,18 +17,20 @@ class Solution {
     public void findMaxOfEachRow(TreeNode root,List<Integer> list,int level){
         if(root == null)return;
         
-        if(list.size()==0){
-            list.add(root.val);
-            // System.out.println("hello");
-        }
-        else if(list.size()-1>=level && list.get(level)<root.val){
+        // if(list.size()==0){
+        //     list.add(root.val);
+        //     // System.out.println("hello");
+        // }
+        // else if(list.size()-1>=level && list.get(level)<root.val){
+        //     list.set(level,root.val);
+        //     // System.out.println("hello...");
+        // }else if(list.size()==level){
+        //     list.add(root.val);
+        // }
+        if(list.size()==level)list.add(root.val);
+        else if(list.get(level)<root.val){
             list.set(level,root.val);
-            // System.out.println("hello...");
-        }else if(list.size()==level){
-            list.add(root.val);
         }
-        // if(list.size()-1>=level)System.out.println(list.size()-1+" "+list.get(level)+" "+root.val+" "+level);
-        // System.out.println(list.size()-1+" "+level+" "+root.val);
         findMaxOfEachRow(root.left,list,level+1);
         findMaxOfEachRow(root.right,list,level+1);
     }
