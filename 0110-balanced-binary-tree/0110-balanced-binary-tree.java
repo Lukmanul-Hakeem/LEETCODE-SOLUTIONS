@@ -14,28 +14,20 @@
  * }
  */
 class Solution {
-    public int findMaxHeight(TreeNode root){
-        if(root==null)return 0;
-        int left=findMaxHeight(root.left);
-        int right=findMaxHeight(root.right);
-        return 1+(left>right?left:right);
-    }
-    public int balanceFactor(TreeNode root){
-        if(root==null)return 0;
-        int left=findMaxHeight(root.left);
-        int right=findMaxHeight(root.right);
-        return left-right;
-    }
-    public boolean inorder(TreeNode root){
-        if(root==null)return true;
-        int bf=balanceFactor(root);
-        System.out.printf("%d | %d ",bf,root.val);
-        if(bf>1 || bf <-1)return false;
-        boolean left=inorder(root.left);
-        boolean right=inorder(root.right);
-        return left & right;
+    public int isBalancedCheck(TreeNode root){
+        if(root == null)return 1;
+
+        int left = isBalancedCheck(root.left);
+        int right = isBalancedCheck(root.right);
+
+        if(left == -1 || right == -1)return -1;
+        if(Math.abs((left-right))>1)return -1;
+
+        else return left > right ? left + 1 : right + 1;
     }
     public boolean isBalanced(TreeNode root) {
-        return inorder(root);
+        int val = isBalancedCheck(root);
+        if(val == -1)return false;
+        return true;
     }
 }
