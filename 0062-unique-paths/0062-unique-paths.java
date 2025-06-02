@@ -1,14 +1,24 @@
 class Solution {
-    public int find(int dp[][],int i,int j){
-        if(i==dp.length || j==dp[0].length)return 0;
-        if(i==dp.length-1 && j==dp[0].length-1)return 1;
-        if(dp[i][j]!=0)return dp[i][j];
-        dp[i][j]=find(dp,i,j+1)+find(dp,i+1,j);
-        return dp[i][j];
+    public int findCount(int dp[][],int m,int n,int row,int col){
+        if(row == m || col == n || row == -1 || col == -1)return 0;
+        if(row == m - 1 && col == n - 1)return 1;
+        if(dp[row][col] != -1)return dp[row][col];
+        int down  = findCount(dp,m,n,row + 1,col);
+        int right = findCount(dp,m,n,row,col + 1);
+        dp[row][col] = down + right;
+        return dp[row][col];
     }
     public int uniquePaths(int m, int n) {
-        int dp[][]=new int [m][n];
-        return find(dp,0,0);
-        //return dp[0][0];
+        int dp[][] = new int[m][n];
+        for(int i = 0;i<m;i++){
+            Arrays.fill(dp[i],-1);
+        }
+        return findCount(dp,m,n,0,0);
+        // for(int arr[] : dp){
+        //     for(int val1 : arr)System.out.print(val1+" ");
+        //     System.out.println();
+        // }
+
+        // return val;
     }
 }
