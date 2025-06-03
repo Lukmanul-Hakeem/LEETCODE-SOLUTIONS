@@ -1,25 +1,25 @@
 class Solution {
-    public void permutation(List<List<Integer>> listoflist,List<Integer> list,int A[],int index,boolean used[]){
-        if(index==A.length){
-            listoflist.add(new ArrayList(list));
-            return;
-        }
-        for(int i=0;i<A.length;i++){
-            if(used[i])continue;
-            used[i]=true;
-            list.add(A[i]);
-            permutation(listoflist,list,A,index+1,used);
-            //permutation(listoflist,list,A,i+1,high,index+1);
-            list.remove(list.size()-1);
-            used[i]=false;
+    public void find(int nums[],int index,List<List<Integer>> result,List<Integer> list){
+        if(list.size() == nums.length){
+            if(!result.contains(list)){
+                result.add(new ArrayList(list));
+            }
+            return ;
         }
 
+        for(int i=0;i<nums.length;i++){
+            if(!list.contains(nums[i])){
+                list.add(nums[i]);
+                find(nums,i+1,result,list);
+                list.remove(list.size()-1);
+            }
+        }
     }
+
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> listoflist=new ArrayList<>();
-        List<Integer> list=new ArrayList<>();
-        boolean used[]=new boolean [nums.length];
-        permutation(listoflist,list,nums,0,used);
-        return listoflist;
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        find(nums,0,result,list);
+        return result;
     }
 }
