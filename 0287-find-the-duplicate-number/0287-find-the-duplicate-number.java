@@ -1,13 +1,11 @@
 class Solution {
     public int findDuplicate(int[] nums) {
-        HashMap<Integer,Integer> map=new HashMap<>();
-        for(int val:nums){
-            if(map.get(val)==null){
-                map.put(val,1);
-            }else{
-                return val;
-            }
+        for(int val : nums){
+            // System.out.println(val);
+            if(nums[Math.abs(val) - 1] < 0)return Math.abs(val);
+            else nums[Math.abs(val) - 1] = -nums[Math.abs(val) - 1];
         }
+
         return 0;
     }
 }
