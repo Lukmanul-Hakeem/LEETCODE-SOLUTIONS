@@ -10,29 +10,33 @@
  */
 class Solution {
     public ListNode oddEvenList(ListNode head) {
-        if(head == null)return null;
-        ListNode dummy1 = new ListNode(-1,null);
-        ListNode dummy2 = new ListNode(-1,null);
+        ListNode odd = new ListNode(-1,null);
+        ListNode even = new ListNode(-1,null);
+        ListNode oddTemp = odd;
+        ListNode evenTemp = even;
 
-        ListNode odd = dummy1;
-        ListNode even = dummy2;
+        ListNode currNode = head;
+        ListNode front = null;
 
-        ListNode temp = head;
-        int index =0;
-        while(temp!=null){
-            if(index%2==0){
-                even.next = temp;
-                even = temp;
-                
-            }else{
-                odd.next = temp;
-                odd = temp;
-            }
-            temp = temp.next;
-            index++;
+        while(currNode != null && currNode.next != null){
+            oddTemp.next = currNode;
+            evenTemp.next = currNode.next;
+
+            oddTemp = oddTemp.next;
+            evenTemp = evenTemp.next;
+            currNode = currNode.next.next;
         }
-        odd.next = null;
-        even.next = dummy1.next;
-        return dummy2.next;
+
+        if(currNode != null){
+            // System.out.println(currNode.val);
+            oddTemp.next = currNode;
+            evenTemp.next = currNode.next;
+            oddTemp = oddTemp.next;
+            evenTemp = evenTemp.next;
+        }
+
+        oddTemp.next = even.next;
+
+        return odd.next;
     }
 }
